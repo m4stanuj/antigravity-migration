@@ -1,0 +1,237 @@
+// ============================================================
+// M4ST × ANTIGRAVITY — PROVIDER CONFIG
+// 21-provider fallback chain | Windows 11 | RTX 2060 Super
+// Format: OpenCode/oh-my-opencode compatible
+// Version: 6.0 | April 2026
+// ============================================================
+{
+  "$schema": "https://opencode.ai/config.schema.json",
+
+  // ── ACTIVE MODEL (primary) ─────────────────────────────────
+  "model": "groq/llama-3.3-70b-versatile",
+
+  // ── SYSTEM PROMPT ──────────────────────────────────────────
+  "instructions": ".antigravity/SOUL.md",
+
+  // ── MCP SERVERS (M4ST tool layer) ──────────────────────────
+  "mcp": {
+    "m4st-system": {
+      "type": "local",
+      "command": "python",
+      "args": [".antigravity/mcps/mcp_system.py"],
+      "description": "PC control, file ops, shell — 60+ tools"
+    },
+    "m4st-browser": {
+      "type": "local",
+      "command": "python",
+      "args": [".antigravity/mcps/mcp_browser.py"],
+      "description": "CDP-based browser control — 40+ tools"
+    },
+    "m4st-memory": {
+      "type": "local",
+      "command": "python",
+      "args": [".antigravity/mcps/mcp_memory.py"],
+      "description": "3-tier memory (working/episodic/semantic)"
+    },
+    "m4st-vision": {
+      "type": "local",
+      "command": "python",
+      "args": [".antigravity/mcps/mcp_vision.py"],
+      "description": "DPI-aware screenshot + Qwen3-VL vision"
+    },
+    "m4st-web": {
+      "type": "local",
+      "command": "python",
+      "args": [".antigravity/mcps/mcp_web.py"],
+      "description": "Search, scrape, deep research"
+    }
+  },
+
+  // ── PROVIDERS ──────────────────────────────────────────────
+  "providers": {
+
+    // ── TIER 1: FASTEST (free/generous) ──────────────────────
+    "groq": {
+      "name": "Groq",
+      "apiKey": "${GROQ_API_KEY}",
+      "baseURL": "https://api.groq.com/openai/v1",
+      "models": {
+        "llama-3.3-70b-versatile": { "contextLength": 128000 },
+        "llama-3.1-8b-instant":    { "contextLength": 128000 },
+        "qwen-qwq-32b":            { "contextLength": 128000 },
+        "deepseek-r1-distill-llama-70b": { "contextLength": 128000 },
+        "mixtral-8x7b-32768":      { "contextLength": 32768 }
+      }
+    },
+
+    "cerebras": {
+      "name": "Cerebras",
+      "apiKey": "${CEREBRAS_API_KEY}",
+      "baseURL": "https://api.cerebras.ai/v1",
+      "models": {
+        "llama-4-scout-17b-16e-instruct": { "contextLength": 128000 },
+        "llama3.1-70b":                   { "contextLength": 128000 },
+        "llama3.1-8b":                    { "contextLength": 128000 }
+      }
+    },
+
+    // ── TIER 2: SMART (low cost) ──────────────────────────────
+    "deepseek": {
+      "name": "DeepSeek",
+      "apiKey": "${DEEPSEEK_API_KEY}",
+      "baseURL": "https://api.deepseek.com/v1",
+      "models": {
+        "deepseek-chat":   { "contextLength": 64000 },
+        "deepseek-coder":  { "contextLength": 64000 },
+        "deepseek-reasoner": { "contextLength": 64000 }
+      }
+    },
+
+    "gemini": {
+      "name": "Google Gemini",
+      "apiKey": "${GEMINI_API_KEY}",
+      "baseURL": "https://generativelanguage.googleapis.com/v1beta/openai",
+      "models": {
+        "gemini-2.0-flash":          { "contextLength": 1000000 },
+        "gemini-2.5-pro-preview":    { "contextLength": 1000000 },
+        "gemini-2.0-flash-thinking": { "contextLength": 1000000 }
+      }
+    },
+
+    "openrouter": {
+      "name": "OpenRouter",
+      "apiKey": "${OPENROUTER_API_KEY}",
+      "baseURL": "https://openrouter.ai/api/v1",
+      "models": {
+        "qwen/qwen3-235b-a22b:free":         { "contextLength": 40000 },
+        "meta-llama/llama-4-maverick:free":  { "contextLength": 256000 },
+        "microsoft/mai-ds-r1:free":          { "contextLength": 163840 },
+        "google/gemma-3-27b-it:free":        { "contextLength": 131072 },
+        "mistralai/mistral-small-3.1-24b-instruct:free": { "contextLength": 131072 }
+      }
+    },
+
+    // ── TIER 3: PREMIUM (fallback) ────────────────────────────
+    "anthropic": {
+      "name": "Anthropic",
+      "apiKey": "${ANTHROPIC_API_KEY}",
+      "models": {
+        "claude-sonnet-4-6":        { "contextLength": 200000 },
+        "claude-haiku-4-5-20251001": { "contextLength": 200000 }
+      }
+    },
+
+    "openai": {
+      "name": "OpenAI",
+      "apiKey": "${OPENAI_API_KEY}",
+      "models": {
+        "gpt-4o-mini": { "contextLength": 128000 },
+        "gpt-4o":      { "contextLength": 128000 },
+        "o4-mini":     { "contextLength": 128000 }
+      }
+    },
+
+    "together": {
+      "name": "Together AI",
+      "apiKey": "${TOGETHER_API_KEY}",
+      "baseURL": "https://api.together.xyz/v1",
+      "models": {
+        "Qwen/Qwen3-235B-A22B-fp8-tput":   { "contextLength": 40000 },
+        "meta-llama/Llama-4-Scout-17B-16E-Instruct": { "contextLength": 512000 },
+        "deepseek-ai/DeepSeek-R1":          { "contextLength": 64000 }
+      }
+    },
+
+    "mistral": {
+      "name": "Mistral",
+      "apiKey": "${MISTRAL_API_KEY}",
+      "baseURL": "https://api.mistral.ai/v1",
+      "models": {
+        "mistral-small-latest":  { "contextLength": 32000 },
+        "codestral-latest":      { "contextLength": 200000 }
+      }
+    },
+
+    "cohere": {
+      "name": "Cohere",
+      "apiKey": "${COHERE_API_KEY}",
+      "baseURL": "https://api.cohere.ai/compatibility/v1",
+      "models": {
+        "command-r7b-12-2024": { "contextLength": 128000 },
+        "command-r-plus":      { "contextLength": 128000 }
+      }
+    },
+
+    // ── TIER 4: LOCAL (offline / privacy) ────────────────────
+    "ollama": {
+      "name": "Ollama (Local)",
+      "apiKey": "ollama",
+      "baseURL": "http://localhost:11434/v1",
+      "models": {
+        "qwen3:8b":         { "contextLength": 32768 },
+        "deepseek-r1:8b":   { "contextLength": 32768 },
+        "qwen2.5-coder:7b": { "contextLength": 32768 }
+      }
+    },
+
+    "llamacpp": {
+      "name": "llama-server (Local)",
+      "apiKey": "local",
+      "baseURL": "http://localhost:8080/v1",
+      "models": {
+        "qwen3-vl-7b": { "contextLength": 32768 },
+        "josiefied-qwen3-8b": { "contextLength": 4096 }
+      }
+    }
+  },
+
+  // ── FALLBACK CHAIN (ordered) ───────────────────────────────
+  // M4ST uses this sequence on rate limit / failure
+  "fallbackChain": [
+    "groq/llama-3.3-70b-versatile",
+    "groq/llama-3.1-8b-instant",
+    "cerebras/llama-4-scout-17b-16e-instruct",
+    "cerebras/llama3.1-70b",
+    "openrouter/qwen/qwen3-235b-a22b:free",
+    "openrouter/meta-llama/llama-4-maverick:free",
+    "openrouter/microsoft/mai-ds-r1:free",
+    "deepseek/deepseek-chat",
+    "gemini/gemini-2.0-flash",
+    "together/Qwen/Qwen3-235B-A22B-fp8-tput",
+    "groq/qwen-qwq-32b",
+    "groq/deepseek-r1-distill-llama-70b",
+    "mistral/codestral-latest",
+    "cohere/command-r7b-12-2024",
+    "anthropic/claude-haiku-4-5-20251001",
+    "anthropic/claude-sonnet-4-6",
+    "openai/gpt-4o-mini",
+    "gemini/gemini-2.5-pro-preview",
+    "together/deepseek-ai/DeepSeek-R1",
+    "ollama/qwen3:8b",
+    "llamacpp/josiefied-qwen3-8b"
+  ],
+
+  // ── TASK-BASED ROUTING ─────────────────────────────────────
+  "routing": {
+    "code":     "deepseek/deepseek-coder",
+    "fast":     "groq/llama-3.1-8b-instant",
+    "reason":   "groq/deepseek-r1-distill-llama-70b",
+    "vision":   "llamacpp/qwen3-vl-7b",
+    "long":     "gemini/gemini-2.0-flash",
+    "private":  "llamacpp/josiefied-qwen3-8b",
+    "default":  "groq/llama-3.3-70b-versatile"
+  },
+
+  // ── GENERAL SETTINGS ───────────────────────────────────────
+  "autoshare": false,
+  "theme": "dark",
+  "keybindings": "vscode",
+
+  // ── CONTEXT SETTINGS ───────────────────────────────────────
+  "context": {
+    "maxTokens": 4096,
+    "includeFiles": true,
+    "includeGitDiff": true,
+    "includeWorkspaceTree": true
+  }
+}
