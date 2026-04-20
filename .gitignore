@@ -23,3 +23,6 @@ Thumbs.db
 *.sqlite
 semantic/
 screenshots/
+
+# Internal changelog
+.changelog_internal.md
