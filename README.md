@@ -1,6 +1,10 @@
 # M4ST → ANTIGRAVITY FULL MIGRATION GUIDE
 ## v6.0 | April 2026
 
+> **Historical migration reference.** This guide covers the April 2026 setup. The launcher and MCP bundle are retained for reference. They use older client settings and include broad local capabilities. Review them in an isolated workspace before using any component, and keep your existing client config and credentials in place.
+
+For an actively reviewed starting point, see [OpenWork](https://github.com/m4stanuj/openwork) for inspecting IDE config changes and [MAST](https://github.com/m4stanuj/MAST) for the current integration overview.
+
 ---
 
 ## WHAT THIS DOES
